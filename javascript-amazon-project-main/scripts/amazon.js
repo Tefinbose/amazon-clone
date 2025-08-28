@@ -1,13 +1,11 @@
-
-
-let productsHtml="";
+let productsHtml = "";
 products.forEach((products) => {
-  const{image}=products;
+  const { image } = products;
   console.log(image);
-  
+
   // console.log(products);
   // Accumulator pattern(looping through the array and save it in a variable)
-  productsHtml+= ` 
+  productsHtml += ` 
 <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -20,14 +18,14 @@ products.forEach((products) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${products.rating.stars *10}.png">
+              src="images/ratings/rating-${products.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
               ${products.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-           ${(products.priceCents/100).toFixed(2)}
+           ${(products.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
@@ -52,15 +50,35 @@ products.forEach((products) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-productId="${
+            products.id
+          }">
             Add to Cart
           </button>
         </div>
 `;
- 
-
 });
 console.log(productsHtml);
-const acessingElement=document.querySelector(".js-products-grid")
-acessingElement.innerHTML=productsHtml
+const acessingElement = document.querySelector(".js-products-grid");
+acessingElement.innerHTML = productsHtml;
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    const ProductId = button.dataset;
+    //  console.log(ProductName);
 
+    let MatchingItem;
+    Cart.forEach((item) => {
+      if (ProductId === item.ProductId) {
+        MatchingItem = item;
+      }
+      if (MatchingItem) {
+        MatchingItem.quantity += 1;
+      } else
+        Cart.push({
+          ProductId: ProductId,
+          quantity: 1,
+        });
+    });
+    console.log(Cart);
+  });
+});
