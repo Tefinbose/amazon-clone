@@ -1,3 +1,6 @@
+import { Cart } from "../data/Cart.js";
+
+
 let productsHtml = "";
 products.forEach((products) => {
   const { image } = products;
@@ -61,10 +64,24 @@ products.forEach((products) => {
 console.log(productsHtml);
 const acessingElement = document.querySelector(".js-products-grid");
 acessingElement.innerHTML = productsHtml;
+
+
+// console.log(ListQuantity);
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const ProductId = button.dataset;
     //  console.log(ProductName);
+    // Accessing the list of the Quantity
+let ListQuantity = document.querySelectorAll(
+  ".product-quantity-container select"
+);
+console.log(ListQuantity);
+ListQuantity.forEach((item) => {
+  item.addEventListener("change", () => {
+    console.log(item.value);
+  });
+});
 
     let MatchingItem;
     Cart.forEach((item) => {
@@ -84,9 +101,9 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     // To display the CartQuantity
     let CartQuantity = 0;
     Cart.forEach((item) => {
-     CartQuantity+=item.quantity
+      CartQuantity += item.quantity;
     });
-     document.querySelector(".to-add-cart-quantity").innerHTML=CartQuantity
+    document.querySelector(".to-add-cart-quantity").innerHTML = CartQuantity;
     console.log(CartQuantity);
 
     console.log(Cart);
