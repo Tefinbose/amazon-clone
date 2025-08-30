@@ -1,2 +1,2 @@
-const Cart=[{}];
+const Cart=[];
 console.log(Cart);

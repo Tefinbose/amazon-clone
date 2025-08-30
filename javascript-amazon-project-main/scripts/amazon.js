@@ -1,7 +1,7 @@
 let productsHtml = "";
 products.forEach((products) => {
   const { image } = products;
-  console.log(image);
+  // console.log(image);
 
   // console.log(products);
   // Accumulator pattern(looping through the array and save it in a variable)
@@ -71,14 +71,24 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       if (ProductId === item.ProductId) {
         MatchingItem = item;
       }
-      if (MatchingItem) {
-        MatchingItem.quantity += 1;
-      } else
-        Cart.push({
-          ProductId: ProductId,
-          quantity: 1,
-        });
     });
+    if (MatchingItem) {
+      MatchingItem.quantity += 1;
+    } else {
+      Cart.push({
+        ProductId: ProductId,
+        quantity: 1,
+      });
+    }
+
+    // To display the CartQuantity
+    let CartQuantity = 0;
+    Cart.forEach((item) => {
+     CartQuantity+=item.quantity
+    });
+     document.querySelector(".to-add-cart-quantity").innerHTML=CartQuantity
+    console.log(CartQuantity);
+
     console.log(Cart);
   });
 });
