@@ -1,5 +1,7 @@
 import { Cart } from "../data/Cart.js";
 import { products } from "../data/products.js";
+// importing utilities
+import { FormatCurrency } from "./utils/money.js";
 
 let CartSummaryHtml;
 Cart.forEach((CartItem) => {
@@ -27,7 +29,7 @@ Cart.forEach((CartItem) => {
                   ${MatchingItem.name}
                 </div>
                 <div class="product-price">
-                  ${MatchingItem.priceCents /100}
+                  ${FormatCurrency(MatchingItem.priceCents )}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -49,7 +51,7 @@ Cart.forEach((CartItem) => {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="${MatchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -62,7 +64,7 @@ Cart.forEach((CartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="${MatchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -75,7 +77,7 @@ Cart.forEach((CartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="${MatchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
