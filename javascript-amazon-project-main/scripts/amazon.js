@@ -1,6 +1,6 @@
 import { Cart } from "../data/Cart.js";
 import { products } from "../data/products.js";
-
+import { addToCart } from "../data/Cart.js";
 
 let productsHtml = "";
 products.forEach((products) => {
@@ -66,46 +66,34 @@ console.log(productsHtml);
 const acessingElement = document.querySelector(".js-products-grid");
 acessingElement.innerHTML = productsHtml;
 
-
 // console.log(ListQuantity);
 
+// To display the CartQuantity
+function UpdateCartQuantity() {
+  let CartQuantity = 0;
+  Cart.forEach((item) => {
+    CartQuantity += item.quantity;
+  });
+  document.querySelector(".to-add-cart-quantity").innerHTML = CartQuantity;
+  console.log(CartQuantity);
+}
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const ProductId = button.dataset;
+    addToCart(ProductId);
     //  console.log(ProductName);
     // Accessing the list of the Quantity
-let ListQuantity = document.querySelectorAll(
-  ".product-quantity-container select"
-);
-console.log(ListQuantity);
-ListQuantity.forEach((item) => {
-  item.addEventListener("change", () => {
-    console.log(item.value);
-  });
-});
-
-    let MatchingItem;
-    Cart.forEach((item) => {
-      if (ProductId === item.ProductId) {
-        MatchingItem = item;
-      }
-    });
-    if (MatchingItem) {
-      MatchingItem.quantity += 1;
-    } else {
-      Cart.push({
-        ProductId: ProductId,
-        quantity: 1,
+    
+    let ListQuantity = document.querySelectorAll(
+      ".product-quantity-container select"
+    );
+    console.log(ListQuantity);
+    ListQuantity.forEach((item) => {
+      item.addEventListener("change", () => {
+        console.log(item.value);
       });
-    }
-
-    // To display the CartQuantity
-    let CartQuantity = 0;
-    Cart.forEach((item) => {
-      CartQuantity += item.quantity;
     });
-    document.querySelector(".to-add-cart-quantity").innerHTML = CartQuantity;
-    console.log(CartQuantity);
+    UpdateCartQuantity();
 
     console.log(Cart);
   });
