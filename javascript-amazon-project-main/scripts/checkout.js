@@ -1,21 +1,22 @@
-import { Cart } from "../data/Cart.js";
+import { Cart ,RemoveFromCart} from "../data/Cart.js";
 import { products } from "../data/products.js";
 // importing utilities
-import { FormatCurrency } from "./utils/money.js";
+import { FormatCurrency} from "./utils/money.js";
+
 
 let CartSummaryHtml;
 Cart.forEach((CartItem) => {
   const { ProductId, quantity } = CartItem;
   let MatchingItem;
   products.forEach((product) => {
-    if (ProductId===product.id) {
+    if (ProductId === product.id) {
       MatchingItem = product;
     }
-  })
+  });
   console.log(MatchingItem);
-  
-    CartSummaryHtml+=`
-    <div class="cart-item-container">
+
+  CartSummaryHtml += `
+    <div class="cart-item-container js-cart-item-container">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -29,16 +30,20 @@ Cart.forEach((CartItem) => {
                   ${MatchingItem.name}
                 </div>
                 <div class="product-price">
-                  ${FormatCurrency(MatchingItem.priceCents )}
+                  ${FormatCurrency(MatchingItem.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${CartItem.quantity}</span>
+                    Quantity: <span class="quantity-label">${
+                      CartItem.quantity
+                    }</span>
                   </span>
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary js-delete-quality-link" data-delete-Id="${
+                    MatchingItem.id
+                  }">
                     Delete
                   </span>
                 </div>
@@ -93,4 +98,19 @@ Cart.forEach((CartItem) => {
     `;
 });
 
-document.querySelector(".js-order-summary").innerHTML=CartSummaryHtml
+document.querySelector(".js-order-summary").innerHTML = CartSummaryHtml;
+
+
+
+// making the delete button interactive
+const DeleteBtn = document.querySelectorAll(".js-delete-quality-link");
+DeleteBtn.forEach((link) => {
+  console.log(link);
+  link.addEventListener("click", () => {
+    // console.log("Button clicked");
+    const ProductId = link.dataset;
+    console.log(ProductId);
+    RemoveFromCart(ProductId)
+    console.log(Cart);
+  });
+});
