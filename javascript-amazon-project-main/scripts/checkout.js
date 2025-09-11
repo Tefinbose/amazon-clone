@@ -1,8 +1,7 @@
-import { Cart ,RemoveFromCart} from "../data/Cart.js";
+import { Cart, RemoveFromCart } from "../data/Cart.js";
 import { products } from "../data/products.js";
 // importing utilities
-import { FormatCurrency} from "./utils/money.js";
-
+import { FormatCurrency } from "./utils/money.js";
 
 let CartSummaryHtml;
 Cart.forEach((CartItem) => {
@@ -100,17 +99,20 @@ Cart.forEach((CartItem) => {
 
 document.querySelector(".js-order-summary").innerHTML = CartSummaryHtml;
 
-
-
 // making the delete button interactive
 const DeleteBtn = document.querySelectorAll(".js-delete-quality-link");
 DeleteBtn.forEach((link) => {
   console.log(link);
   link.addEventListener("click", () => {
     // console.log("Button clicked");
-    const ProductId = link.dataset;
-    console.log(ProductId);
-    RemoveFromCart(ProductId)
+    const ProductId = link.dataset.deleteId;
+    // console.log(ProductId);
+    RemoveFromCart(ProductId);
     console.log(Cart);
+    // console the item code
+    const container = document.querySelector(`.js-cart-item-container`);
+    console.log(container);
+    console.log(ProductId);
+    container.remove()
   });
 });
