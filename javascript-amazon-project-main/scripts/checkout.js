@@ -16,6 +16,8 @@ console.log(today);
 const deliveryDate = today.add(7, "days");
 console.log(deliveryDate.format("dddd, MMMMM D"));
 
+
+function RenderOrderSummary(){
 let CartSummaryHtml;
 Cart.forEach((CartItem) => {
   const { ProductId, quantity, ProductName } = CartItem;
@@ -37,10 +39,8 @@ Cart.forEach((CartItem) => {
     }
   });
   const today = dayjs();
-  deliveryOptions.forEach((option) => {
-    let deliveryDate = today.add(option.deliveryDays, "days");
-  });
-  const dateString = deliveryDate.format("dddd MMMM D");
+  const deliveryDate=today.add(deliveryOption.deliveryDays,"days")
+  const dateString=deliveryDate.format("dddd MMM D")
 
   CartSummaryHtml += `
     <div class="cart-item-container js-cart-item-container-${MatchingItem.id}">
@@ -158,9 +158,12 @@ deliveryOptionBtn.forEach((button) => {
     const ProductId = button.dataset.productid;
     const deliveryoptionid = button.dataset.deliveryoptionid;
     updateDeliveryOption(ProductId, deliveryoptionid);
-    console.log(ProductId);
-    console.log(deliveryoptionid);
-    console.log(Cart);
+    // console.log(ProductId);
+    // console.log(deliveryoptionid);
+    // console.log(Cart);
+    RenderOrderSummary()
     
   });
 });
+}
+RenderOrderSummary()
