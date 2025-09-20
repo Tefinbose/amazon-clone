@@ -1,20 +1,36 @@
- export let Cart=[
-    {ProductId:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity:1
+
+
+export let Cart = JSON.parse(localStorage.getItem("Cart"));
+if (!Cart) {
+  Cart = [
+    {
+      ProductName: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+      ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      quantity: 1,
+      deliveryOptionId:"1"
     },
     {
-        ProductId:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
-        quantity:1
-    }
-    
- ];
-console.log(Cart);
+      ProductName: "Intermediate Size Basketball",
+      ProductId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      quantity: 1,
+      deliveryOptionId:"2"
+    },
+  ];
+}
 
-// Fetching catProducts
- export function addToCart(ProductId) {
+// console.log(Cart);
+
+// Function to save the cart in Local storage
+function SaveToStorage() {
+  localStorage.setItem("Cart", JSON.stringify(Cart));
+}
+
+// Fetching cartProducts
+export function addToCart(ProductName, ProductId) {
   let MatchingItem;
   Cart.forEach((CartItem) => {
-    if (ProductId === CartItem.ProductId) {
+    //  console.log(CartItem.ProductName);
+    if (ProductName === CartItem.ProductName) {
       MatchingItem = CartItem;
     }
   });
@@ -22,22 +38,34 @@ console.log(Cart);
     MatchingItem.quantity += 1;
   } else {
     Cart.push({
-      ProductId: ProductId,
+      ProductName,
+      ProductId,
       quantity: 1,
+      deliveryOptionId:"1"
+    
     });
   }
+
+  SaveToStorage();
 }
 // Function to remove the CartItem
-export function RemoveFromCart(productId){
-  const newCartArray=[];
-  Cart.forEach((Cartitem)=>{
-    if(Cartitem.ProductId !== productId){
-       newCartArray.push(Cartitem)
+export function RemoveFromCart(ProductId) {
+  const newCartArray = [];
+  Cart.forEach((Cartitem) => {
+    if (Cartitem.ProductId !== ProductId) {
+      newCartArray.push(Cartitem);
     }
-    
-    Cart=newCartArray
-
-  })
+  });
+  Cart = newCartArray;
+  SaveToStorage();
+  
 }
-RemoveFromCart()
-
+// Calculate the CartQuantity function
+ export function CalculateCartQuantity(){
+  let CartQuantity = 0;
+  Cart.forEach((item) => {
+    CartQuantity += item.quantity;
+    document.querySelector(".checkout-header-middle-section a").innerHTML =
+      CartQuantity;
+  });
+}

@@ -4,7 +4,7 @@ import { addToCart } from "../data/Cart.js";
 // importing utilities
 
 import { FormatCurrency } from "./utils/money.js";
-
+``
 let productsHtml = "";
 products.forEach((products) => {
   const { image } = products;
@@ -59,36 +59,42 @@ products.forEach((products) => {
 
           <button class="add-to-cart-button button-primary js-add-to-cart" data-productId="${
             products.id
-          }">
+          }" data-productname="${products.name}">
             Add to Cart
           </button>
         </div>
 `;
 });
 console.log(productsHtml);
-const acessingElement = document.querySelector(".js-products-grid");
+
+  const acessingElement = document.querySelector(".js-products-grid");
 acessingElement.innerHTML = productsHtml;
+
 
 // console.log(ListQuantity);
 
 // To display the CartQuantity
-function UpdateCartQuantity() {
+export function UpdateCartQuantity() {
   let CartQuantity = 0;
   Cart.forEach((item) => {
     CartQuantity += item.quantity;
+
+    document.querySelector(".to-add-cart-quantity").innerHTML=CartQuantity
   });
-  document.querySelector(".to-add-cart-quantity").innerHTML = CartQuantity;
-  console.log(CartQuantity);
+  
 }
 // Add to cart button
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    const ProductId = button.dataset;
-  
-    addToCart(ProductId);
+    const ProductId = button.dataset.productid;
+    const ProductName = button.dataset.productname;
+    // console.log(ProductId);
+    // console.log(ProductName);
+
+    addToCart(ProductName, ProductId);
     //  console.log(ProductName);
     // Accessing the list of the Quantity
-    
+
     let ListQuantity = document.querySelectorAll(
       ".product-quantity-container select"
     );
