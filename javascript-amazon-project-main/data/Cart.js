@@ -69,3 +69,16 @@ export function RemoveFromCart(ProductId) {
       CartQuantity;
   });
 }
+
+  export function updateDeliveryOption(ProductId,deliveryOptionId){
+  let MatchingItem;   
+  Cart.forEach((CartItem)=>{
+      if(ProductId===CartItem.ProductId){
+        MatchingItem=CartItem
+      }
+     });
+     MatchingItem.deliveryOptionId=deliveryOptionId
+     SaveToStorage()
+     
+
+ }
