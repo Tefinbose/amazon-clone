@@ -1,5 +1,5 @@
 import { Cart, RemoveFromCart, updateDeliveryOption } from "../../data/Cart.js";
-import { products } from "../../data/products.js";
+import { products,getProducts } from "../../data/products.js";
 import { CalculateCartQuantity } from "../../data/Cart.js";
 import { deliveryOptions } from "../../data/deliveryOption.js";
 // importing utilities
@@ -21,17 +21,13 @@ export function RenderOrderSummary(){
 let CartSummaryHtml;
 Cart.forEach((CartItem) => {
   const { ProductId, quantity, ProductName } = CartItem;
-  console.log(ProductName);
+  // console.log(ProductName);
 
-  let MatchingItem;
-  products.forEach((product) => {
-    if (product.name === ProductName) {
-      MatchingItem = product;
-    }
-  });
-  console.log(MatchingItem);
+ const MatchingItem= getProducts(ProductName)
+  // console.log(MatchingItem);
 
   const deliveryOptionId = CartItem.deliveryOptionId;
+  
   let deliveryOption;
   deliveryOptions.forEach((option) => {
     if (option.id === deliveryOptionId) {
@@ -132,7 +128,7 @@ document.querySelector(".js-order-summary").innerHTML = CartSummaryHtml;
 // making the delete button interactive
 const DeleteBtn = document.querySelectorAll(".js-delete-quality-link");
 DeleteBtn.forEach((link) => {
-  console.log(link);
+  // console.log(link);
   link.addEventListener("click", () => {
     // console.log("Button clicked");
     const ProductId = link.dataset.deleteId;
