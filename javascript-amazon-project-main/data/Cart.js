@@ -1,6 +1,9 @@
 
-
-export let Cart = JSON.parse(localStorage.getItem("Cart"));
+// so Here are accessing the cart from the storage sometimes it shows null 
+export let Cart ;
+loadFromStorage()
+export function loadFromStorage(){
+   Cart=JSON.parse(localStorage.getItem("Cart"));
 if (!Cart) {
   Cart = [
     {
@@ -17,8 +20,9 @@ if (!Cart) {
     },
   ];
 }
+}
 
-// console.log(Cart);
+console.log(Cart);
 
 // Function to save the cart in Local storage
 function SaveToStorage() {
