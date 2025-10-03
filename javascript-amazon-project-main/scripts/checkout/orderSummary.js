@@ -31,7 +31,7 @@ export function RenderOrderSummary() {
     const dateString = deliveryDate.format("dddd MMM D");
 
     CartSummaryHtml += `
-    <div class="cart-item-container js-cart-item-container-${MatchingItem.id}">
+    <div class="cart-item-container js-cart-item-container js-cart-item-container-${MatchingItem.id}">
             <div class="delivery-date">
               Delivery date: ${dateString}
             </div>
@@ -47,7 +47,7 @@ export function RenderOrderSummary() {
                 <div class="product-price">
                   ${FormatCurrency(MatchingItem.priceCents)}
                 </div>
-                <div class="product-quantity">
+                <div class="product-quantity js-product-quantity-${MatchingItem.id}">
                   <span>
                     Quantity: <span class="quantity-label">${
                       CartItem.quantity
@@ -140,7 +140,6 @@ export function RenderOrderSummary() {
     });
   });
   CalculateCartQuantity();
-
   const deliveryOptionBtn = document.querySelectorAll(".js-delivery-option");
   deliveryOptionBtn.forEach((button) => {
     button.addEventListener("click", () => {

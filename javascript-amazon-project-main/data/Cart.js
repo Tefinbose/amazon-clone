@@ -71,8 +71,11 @@ export function RemoveFromCart(ProductId) {
     CartQuantity += item.quantity;
     document.querySelector(".checkout-header-middle-section a").innerHTML =
       CartQuantity;
+      console.log(CartQuantity);
+      
   });
 }
+
 
   export function updateDeliveryOption(ProductId,deliveryOptionId){
   let MatchingItem;   
