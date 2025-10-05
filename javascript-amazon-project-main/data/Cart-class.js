@@ -1,15 +1,15 @@
 class Cart {
   cartitems;
-  localStorageKey ;
+  #localStorageKey ;
 
   constructor(localStorageKey){
-    this.localStorageKey=localStorageKey;
-    this.loadFromStorage()
+    this.#localStorageKey=localStorageKey;
+    this.#loadFromStorage()
 
   }
 
-  loadFromStorage() {
-    this.cartitems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() {
+    this.cartitems = JSON.parse(localStorage.getItem(this.#localStorageKey));
     if (!Array.isArray(this.cartitems)) {
       this.cartitems = [
         {
@@ -28,7 +28,7 @@ class Cart {
     }
   }
   SaveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartitems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartitems));
   }
   addToCart(ProductName, ProductId) {
     let MatchingItem;
@@ -74,10 +74,14 @@ class Cart {
 
 const cart= new Cart('Cart-oop')
 const businessCart = new Cart('Cart-business');
+// cart.#localStorageKey='oop'  acessing private property
 
 console.log(businessCart);
 console.log(cart instanceof Cart);
 console.log(businessCart instanceof Cart);
+
+
+
 
 
 
