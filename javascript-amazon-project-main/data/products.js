@@ -1,3 +1,5 @@
+import {FormatCurrency} from "../scripts/utils/money.js";
+
 export function getProducts(ProductName) {
   let MatchingItem;
   products.forEach((product) => {
@@ -7,6 +9,43 @@ export function getProducts(ProductName) {
   });
   return MatchingItem;
 }
+
+class Product{
+  
+  //properties
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  // set up function
+  constructor(ProductDetails){
+    this.id=ProductDetails.id;
+    this.image=ProductDetails.image;
+    this.name=ProductDetails.name;
+    this.priceCents=ProductDetails.priceCents;
+    this.rating=ProductDetails.rating;
+    
+  }
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars*10}`
+  }
+  getPrice(){
+    return `${FormatCurrency(this.priceCents)}`
+  }
+}
+const Product1=new Product(
+    {id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+    rating: {
+      stars: 4.5,
+      count: 87,
+    },
+    priceCents: 1090,
+    keywords: ["socks", "sports", "apparel"],
+  })
+console.log(Product1);
 
 
 export const products = [
@@ -480,4 +519,7 @@ export const products = [
     priceCents: 2400,
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
-];
+].map((productDetails)=>{
+  return new Product(productDetails)  
+})
+

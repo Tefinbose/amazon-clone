@@ -7,8 +7,8 @@ import { FormatCurrency } from "./utils/money.js";
 ``
 let productsHtml = "";
 products.forEach((products) => {
-  const { image } = products;
-  // console.log(image);
+console.log(products.image);
+
 
   // console.log(products);
   // Accumulator pattern(looping through the array and save it in a variable)
@@ -25,14 +25,14 @@ products.forEach((products) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${products.rating.stars * 10}.png">
+              src="${products.getStarsUrl()}.png">
             <div class="product-rating-count link-primary">
               ${products.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-           ${FormatCurrency(products.priceCents)}
+           ${products.getPrice()}
           </div>
 
           <div class="product-quantity-container">

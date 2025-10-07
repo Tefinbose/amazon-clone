@@ -42,10 +42,10 @@ export function RenderOrderSummary() {
 
               <div class="cart-item-details">
                 <div class="product-name">
-                  ${MatchingItem.name}
+                 ${MatchingItem.name}
                 </div>
                 <div class="product-price">
-                  ${FormatCurrency(MatchingItem.priceCents)}
+                  $${MatchingItem.getPrice()}
                 </div>
                 <div class="product-quantity js-product-quantity-${MatchingItem.id}">
                   <span>
