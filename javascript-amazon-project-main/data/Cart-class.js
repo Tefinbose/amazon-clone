@@ -79,6 +79,8 @@ const businessCart = new Cart('Cart-business');
 console.log(businessCart);
 console.log(cart instanceof Cart);
 console.log(businessCart instanceof Cart);
+console.log(this.cartitems);
+
 
 
 

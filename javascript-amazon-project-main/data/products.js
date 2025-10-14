@@ -1,4 +1,4 @@
-import {FormatCurrency} from "../scripts/utils/money.js";
+import { FormatCurrency } from "../scripts/utils/money.js";
 
 export function getProducts(ProductName) {
   let MatchingItem;
@@ -10,8 +10,7 @@ export function getProducts(ProductName) {
   return MatchingItem;
 }
 
-class Product{
-  
+class Product {
   //properties
   id;
   image;
@@ -19,34 +18,38 @@ class Product{
   rating;
   priceCents;
   // set up function
-  constructor(ProductDetails){
-    this.id=ProductDetails.id;
-    this.image=ProductDetails.image;
-    this.name=ProductDetails.name;
-    this.priceCents=ProductDetails.priceCents;
-    this.rating=ProductDetails.rating;
-    
+  constructor(ProductDetails) {
+    this.id = ProductDetails.id;
+    this.image = ProductDetails.image;
+    this.name = ProductDetails.name;
+    this.priceCents = ProductDetails.priceCents;
+    this.rating = ProductDetails.rating;
   }
-  getStarsUrl(){
-    return `images/ratings/rating-${this.rating.stars*10}`
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}`;
   }
-  getPrice(){
-    return `${FormatCurrency(this.priceCents)}`
+  getPrice() {
+    return `${FormatCurrency(this.priceCents)}`;
+  }
+  extraInfoHtml(){
+    return ''
   }
 }
-const Product1=new Product(
-    {id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    rating: {
-      stars: 4.5,
-      count: 87,
-    },
-    priceCents: 1090,
-    keywords: ["socks", "sports", "apparel"],
-  })
-console.log(Product1);
-
+class clothing extends Product {
+  sizeChartLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  extraInfoHtml(){
+    super.extraInfoHtml()
+    return `<a href="${this.sizeChartLink}" target="_top">
+    size chart
+    </a>`
+  }
+}
+const tshirt = new clothing();
+console.log(Product.extraInfoHtml);
 
 export const products = [
   {
@@ -519,7 +522,9 @@ export const products = [
     priceCents: 2400,
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
-].map((productDetails)=>{
-  return new Product(productDetails)  
-})
-
+].map((productDetails) => {
+  if (productDetails.type === "clothing") {
+    return new clothing(productDetails);
+  }
+  return new Product(productDetails);
+});

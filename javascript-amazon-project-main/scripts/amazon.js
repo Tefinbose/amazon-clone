@@ -49,6 +49,7 @@ console.log(products.image);
               <option value="10">10</option>
             </select>
           </div>
+          ${products.extraInfoHtml()}
 
           <div class="product-spacer"></div>
 

@@ -19,7 +19,7 @@ export function RenderOrderSummary() {
     // console.log(MatchingItem);
 
     const deliveryOptionId = CartItem.deliveryOptionId;
-
+   
     let deliveryOption;
     deliveryOptions.forEach((option) => {
       if (option.id === deliveryOptionId) {
