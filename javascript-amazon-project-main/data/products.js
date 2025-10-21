@@ -31,8 +31,8 @@ class Product {
   getPrice() {
     return `${FormatCurrency(this.priceCents)}`;
   }
-  extraInfoHtml(){
-    return ''
+  extraInfoHtml() {
+    return "";
   }
 }
 class clothing extends Product {
@@ -41,15 +41,38 @@ class clothing extends Product {
     super(productDetails);
     this.sizeChartLink = productDetails.sizeChartLink;
   }
-  extraInfoHtml(){
-    super.extraInfoHtml()
+  extraInfoHtml() {
+    super.extraInfoHtml();
     return `<a href="${this.sizeChartLink}" target="_top">
     size chart
-    </a>`
+    </a>`;
   }
 }
-const tshirt = new clothing();
-console.log(Product.extraInfoHtml);
+// const date = new Date()
+// date.toLocaleDateString()
+// console.log(date);
+
+/*summary of "this"
+const object3 = {
+  method() {
+    //inside a method "this" points to the outer object
+    console.log(this);
+  },
+};
+object3.method();
+
+function LogThis() {
+  console.log(this);
+}
+LogThis();
+LogThis.call("hello");
+
+console.log(this);
+[1,2,3].forEach(()=>{
+  console.log(this);
+  
+})
+*/
 
 export const products = [
   {

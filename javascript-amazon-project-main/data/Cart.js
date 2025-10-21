@@ -71,7 +71,7 @@ export function RemoveFromCart(ProductId) {
     CartQuantity += item.quantity;
     document.querySelector(".checkout-header-middle-section a").innerHTML =
       CartQuantity;
-      console.log(CartQuantity);
+      // console.log(CartQuantity);
       
   });
 }
