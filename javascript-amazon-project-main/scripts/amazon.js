@@ -1,18 +1,19 @@
 import { Cart } from "../data/Cart.js";
-import { products } from "../data/products.js";
+import { products, LoadProducts } from "../data/products.js";
 import { addToCart } from "../data/Cart.js";
 // importing utilities
-
 import { FormatCurrency } from "./utils/money.js";
-``
-let productsHtml = "";
-products.forEach((products) => {
-console.log(products.image);
 
+// Callback function
+LoadProducts(renderProductsGrid)
+function renderProductsGrid() {
+  let productsHtml = "";
+  products.forEach((products) => {
+    console.log(products.image);
 
-  // console.log(products);
-  // Accumulator pattern(looping through the array and save it in a variable)
-  productsHtml += ` 
+    // console.log(products);
+    // Accumulator pattern(looping through the array and save it in a variable)
+    productsHtml += ` 
 <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -65,47 +66,46 @@ console.log(products.image);
           </button>
         </div>
 `;
-});
-console.log(productsHtml);
+  });
+  console.log(productsHtml);
 
   const acessingElement = document.querySelector(".js-products-grid");
-acessingElement.innerHTML = productsHtml;
+  acessingElement.innerHTML = productsHtml;
 
+  // console.log(ListQuantity);
 
-// console.log(ListQuantity);
+  // To display the CartQuantity
+   function UpdateCartQuantity() {
+    let CartQuantity = 0;
+    Cart.forEach((item) => {
+      CartQuantity += item.quantity;
 
-// To display the CartQuantity
-export function UpdateCartQuantity() {
-  let CartQuantity = 0;
-  Cart.forEach((item) => {
-    CartQuantity += item.quantity;
-
-    document.querySelector(".to-add-cart-quantity").innerHTML=CartQuantity
-  });
-  
-}
-// Add to cart button
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    const ProductId = button.dataset.productid;
-    const ProductName = button.dataset.productname;
-    // console.log(ProductId);
-    // console.log(ProductName);
-
-    addToCart(ProductName, ProductId);
-    //  console.log(ProductName);
-    // Accessing the list of the Quantity
-
-    let ListQuantity = document.querySelectorAll(
-      ".product-quantity-container select"
-    );
-    // console.log(ListQuantity);
-    ListQuantity.forEach((item) => {
-      item.addEventListener("change", () => {
-        console.log(item.value);
-      });
+      document.querySelector(".to-add-cart-quantity").innerHTML = CartQuantity;
     });
-    UpdateCartQuantity();
-    console.log(Cart);
+  }
+  // Add to cart button
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const ProductId = button.dataset.productid;
+      const ProductName = button.dataset.productname;
+      // console.log(ProductId);
+      // console.log(ProductName);
+
+      addToCart(ProductName, ProductId);
+      //  console.log(ProductName);
+      // Accessing the list of the Quantity
+
+      let ListQuantity = document.querySelectorAll(
+        ".product-quantity-container select"
+      );
+      // console.log(ListQuantity);
+      ListQuantity.forEach((item) => {
+        item.addEventListener("change", () => {
+          console.log(item.value);
+        });
+      });
+      UpdateCartQuantity();
+      console.log(Cart);
+    });
   });
-});
+}
