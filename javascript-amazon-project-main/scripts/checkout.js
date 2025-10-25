@@ -1,6 +1,6 @@
 import { RenderOrderSummary } from "./checkout/orderSummary.js";
 import { RenderPaymentSummary } from "./checkout/paymentSummary.js";
-import { LoadProducts } from "../data/products.js";
+import { LoadProducts,LoadProductsfetch } from "../data/products.js";
 import { LoadCart } from "../data/Cart.js";
 
 // import '../data/Cart-class.js'
@@ -8,20 +8,16 @@ import { LoadCart } from "../data/Cart.js";
 
 
 Promise.all([
-    new Promise((resolve) => {
-  LoadProducts(() => {
-    resolve("Value1");  //we can give parameters to the resolve
-  });
-  
-}),
+    LoadProductsfetch(),
 new Promise((resolve)=>{
     LoadCart(()=>{
-        resolve()
+        resolve("Value2")
     })
 
   })
     
-]).then(()=>{
+]).then((value)=>{
+    console.log(value);
     RenderOrderSummary();
   RenderPaymentSummary();
 })
