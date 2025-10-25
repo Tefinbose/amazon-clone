@@ -1,11 +1,54 @@
 import { RenderOrderSummary } from "./checkout/orderSummary.js";
 import { RenderPaymentSummary } from "./checkout/paymentSummary.js";
 import { LoadProducts } from "../data/products.js";
+import { LoadCart } from "../data/Cart.js";
 
 // import '../data/Cart-class.js'
 // import '../data/backend-practice.js'
-LoadProducts(() => {
-  // Anonymous function
-  RenderOrderSummary();
+
+
+Promise.all([
+    new Promise((resolve) => {
+  LoadProducts(() => {
+    resolve("Value1");  //we can give parameters to the resolve
+  });
+  
+}),
+new Promise((resolve)=>{
+    LoadCart(()=>{
+        resolve()
+    })
+
+  })
+    
+]).then(()=>{
+    RenderOrderSummary();
   RenderPaymentSummary();
+})
+
+/*new Promise((resolve) => {
+  LoadProducts(() => {
+    resolve("Value1");  //we can give parameters to the resolve
+  });
+  
+}).then((value) => {
+    console.log(value);
+    
+  new Promise((resolve)=>{
+    LoadCart(()=>{
+        resolve()
+    })
+
+  }).then(()=>{
+    RenderOrderSummary();
+  RenderPaymentSummary();
+  })
 });
+
+/*LoadProducts(() => {
+  LoadCart(() => {
+    RenderOrderSummary();
+    RenderPaymentSummary();
+  });
+  // Anonymous function
+});*/

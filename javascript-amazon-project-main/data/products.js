@@ -60,9 +60,11 @@ export function LoadProducts(fun) {
       }else{
         return new Product(productDetails)
       }
+      
     });
     console.log(products);
     fun()
+    
   });
   //This will create an XMLHttpRequest and  saving it in to a variable
   xhr.open("GET", "https://supersimplebackend.dev/products");
@@ -77,7 +79,7 @@ export function LoadProducts(fun) {
     }
   }*/
 }
-LoadProducts();
+
 
 // const date = new Date()
 // date.toLocaleDateString()
