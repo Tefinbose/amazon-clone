@@ -7,17 +7,23 @@ import { LoadCart } from "../data/Cart.js";
 // import '../data/backend-practice.js'
 
 async function Loadpage() {
-  console.log("Load Page");
-  await LoadProductsfetch();
-  // return "value-1";
-  await new Promise((resolve) => {
-    LoadCart(() => {
-      resolve("Value2");
-    });
-  }).then((data)=>{
-   console.log(data)
+  try{
+    // throw "error-1"
+    await LoadProductsfetch();
+   const value =  await new Promise((resolve,reject) => {
+      LoadCart(() => {
+        
+        // resolve("Value2");
+      });
+    })
+  }catch(error){
+    console.log("Unexpectef errror : ",error);
 
-  })
+  }
+  // console.log("Load Page");
+  
+  // return "value-1";
+ 
   RenderOrderSummary();
   RenderPaymentSummary();
 

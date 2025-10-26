@@ -55,7 +55,7 @@ export function LoadProductsfetch() {
   const promise = fetch("https://supersimplebackend.dev/products")
     .then((response) => {
       console.log("Response is there");
-      
+
       return response.json();
     })
     .then((ProductsData) => {
@@ -67,10 +67,13 @@ export function LoadProductsfetch() {
         }
       });
       console.log("Load products");
-      
+    })
+    .catch((error) => {
+      console.log("Unexpected error:", error);
     });
-    return promise;
+  return promise;
 }
+
 /*LoadProductsfetch().then(()=>{
   console.log("Next step");
   
@@ -89,6 +92,10 @@ export function LoadProducts(fun) {
     console.log(products);
     fun();
   });
+  xhr.addEventListener("error", (error) => {
+    console.log("Unexpected error : ", error);
+  });
+
   //This will create an XMLHttpRequest and  saving it in to a variable
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send(); //Sending the request to the path(asynchronous request no wait for the response)
