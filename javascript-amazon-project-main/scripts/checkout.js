@@ -1,26 +1,49 @@
 import { RenderOrderSummary } from "./checkout/orderSummary.js";
 import { RenderPaymentSummary } from "./checkout/paymentSummary.js";
-import { LoadProducts,LoadProductsfetch } from "../data/products.js";
+import { LoadProducts, LoadProductsfetch } from "../data/products.js";
 import { LoadCart } from "../data/Cart.js";
 
 // import '../data/Cart-class.js'
 // import '../data/backend-practice.js'
 
-
-Promise.all([
-    LoadProductsfetch(),
-new Promise((resolve)=>{
-    LoadCart(()=>{
-        resolve("Value2")
-    })
+async function Loadpage() {
+  console.log("Load Page");
+  await LoadProductsfetch();
+  // return "value-1";
+  await new Promise((resolve) => {
+    LoadCart(() => {
+      resolve("Value2");
+    });
+  }).then((data)=>{
+   console.log(data)
 
   })
-    
-]).then((value)=>{
-    console.log(value);
-    RenderOrderSummary();
+  RenderOrderSummary();
   RenderPaymentSummary();
-})
+
+}
+
+Loadpage().then((data) => {
+  console.log(data);
+  
+});
+
+
+
+/*Promise.all([
+  LoadProductsfetch(),
+  new Promise((resolve) => {
+    LoadCart(() => {
+      resolve("Value2");
+    });
+  }),
+]).then((value) => {
+  console.log(value);
+  RenderOrderSummary();
+  RenderPaymentSummary();
+});*/
+
+
 
 /*new Promise((resolve) => {
   LoadProducts(() => {
