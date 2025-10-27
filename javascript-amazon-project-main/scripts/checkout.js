@@ -10,17 +10,17 @@ async function Loadpage() {
   try{
     // throw "error-1"
     await LoadProductsfetch();
-   const value =  await new Promise((resolve,reject) => {
+   const value =  await new Promise((resolve) => {
       LoadCart(() => {
-        
-        // resolve("Value2");
+       
+        resolve("Value2");
       });
     })
   }catch(error){
     console.log("Unexpectef errror : ",error);
 
   }
-  // console.log("Load Page");
+  console.log("Load Page");
   
   // return "value-1";
  
